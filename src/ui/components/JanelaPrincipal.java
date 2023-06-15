@@ -27,9 +27,20 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void construirFilhos() {
-        getContentPane().add(new PainelEsquerdo(), BorderLayout.CENTER);
+        // Painel Esquerdo
+        JPanel painelEsquerdo = new PainelEsquerdo();
+        JScrollPane scrollEsquerdo = new JScrollPane(painelEsquerdo);
+        scrollEsquerdo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        getContentPane().add(new PainelDireito(), BorderLayout.EAST);
+        // Painel Direito
+        JPanel painelDireito = new PainelDireito();
+        JScrollPane scrollDireito = new JScrollPane(painelDireito);
+        scrollDireito.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        // Layout
+        setLayout(new GridLayout(1, 2));
+        add(scrollEsquerdo);
+        add(scrollDireito);
     }
 
 }

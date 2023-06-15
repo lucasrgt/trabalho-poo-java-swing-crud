@@ -5,10 +5,10 @@ import java.awt.*;
 
 public class UsuarioFormPainel extends JPanel {
 
-
-
+    /** Constroi o formulário com os campos específicos **/
     public UsuarioFormPainel() {
         // Tamanho e layout
+
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
 
@@ -36,35 +36,20 @@ public class UsuarioFormPainel extends JPanel {
         constroiCampoFormulario("Usuário");
 
         // Senha
-        add(new JLabel("Senha: "), getDefaultConstraints());
-        JPasswordField senhaField = new JPasswordField();
-        add(senhaField, getDefaultConstraints());
+        constroiCampoSenha();
 
         // Curso
-        add(new JLabel("Curso: "), getDefaultConstraints());
-        JComboBox<String> cursoBox = new JComboBox<>(new String[]{"Curso 1", "Curso 2", "Curso 3"});
-        add(cursoBox, getDefaultConstraints());
+        constroiCampoCurso();
 
         // Observações
-        add(new JLabel("Observações: "), getDefaultConstraints());
-        JTextArea observacoesArea = new JTextArea();
-        add(observacoesArea, getDefaultConstraints());
+        constroiCampoObservacoes();
 
         // Ativo
-        add(new JLabel("Ativo: "), getDefaultConstraints());
-        JRadioButton simButton = new JRadioButton("Sim");
-        JRadioButton naoButton = new JRadioButton("Não");
-        ButtonGroup group = new ButtonGroup();
-
-        group.add(simButton);
-        group.add(naoButton);
-
-        add(simButton, getDefaultConstraints());
-        add(naoButton, getDefaultConstraints());
+        constroiCampoAtivo();
 
         // Botão para cadastrar
-        JButton cadastrarButton = new JButton("Cadastrar");
-        add(cadastrarButton, getDefaultConstraints());
+        constroiBotaoCadastrar();
+
     }
 
     /** Dimensões e espaçamentos padrões dos campos do formulário **/
@@ -85,6 +70,65 @@ public class UsuarioFormPainel extends JPanel {
     }
     private void constroiCampoFormulario(String nome) {
         add(new JLabel(nome + ": "), getDefaultConstraints());
-        add(new JTextField(), getDefaultConstraints());
+
+        JTextField campo = new JTextField();
+        campo.setBorder(BorderFactory.createCompoundBorder(
+                campo.getBorder(),
+
+                // Espaçamento interno do campo do formulário
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)
+        ));
+
+        add(campo, getDefaultConstraints());
+    }
+
+    private void constroiCampoSenha() {
+        add(new JLabel("Senha: "), getDefaultConstraints());
+        JPasswordField campoSenha = new JPasswordField();
+
+        campoSenha.setBorder(BorderFactory.createCompoundBorder(
+                campoSenha.getBorder(),
+
+                // Espaçamento interno do campo do formulário
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)
+        ));
+
+        add(campoSenha, getDefaultConstraints());
+    }
+
+    private void constroiCampoCurso() {
+        add(new JLabel("Curso: "), getDefaultConstraints());
+        JComboBox<String> cursoBox = new JComboBox<>(new String[]{"Curso 1", "Curso 2", "Curso 3"});
+        add(cursoBox, getDefaultConstraints());
+    }
+
+    private void constroiCampoObservacoes() {
+        add(new JLabel("Observações: "), getDefaultConstraints());
+        JTextArea observacoesArea = new JTextArea();
+        observacoesArea.setBorder(BorderFactory.createCompoundBorder(
+                observacoesArea.getBorder(),
+
+                // Espaçamento interno do campo do formulário
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)
+        ));
+        add(observacoesArea, getDefaultConstraints());
+    }
+
+    private void constroiCampoAtivo() {
+        add(new JLabel("Ativo: "), getDefaultConstraints());
+        JRadioButton simButton = new JRadioButton("Sim");
+        JRadioButton naoButton = new JRadioButton("Não");
+        ButtonGroup group = new ButtonGroup();
+
+        group.add(simButton);
+        group.add(naoButton);
+
+        add(simButton, getDefaultConstraints());
+        add(naoButton, getDefaultConstraints());
+    }
+
+    private void constroiBotaoCadastrar() {
+        JButton cadastrarButton = new JButton("Cadastrar");
+        add(cadastrarButton, getDefaultConstraints());
     }
 }
