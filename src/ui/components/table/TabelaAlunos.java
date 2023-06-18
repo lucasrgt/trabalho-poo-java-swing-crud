@@ -9,15 +9,16 @@ import ui.components.buttons.BotaoDeletar;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class TabelaAlunos extends JPanel implements Componente {
+
+    private DefaultTableModel model;
 
     public TabelaAlunos() {
         setBackground(new Color(229, 237, 245));
         setLayout(new BorderLayout());  // Adiciona o BorderLayout
         setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
-
-
         construirFilhos();
     }
 
@@ -27,10 +28,9 @@ public class TabelaAlunos extends JPanel implements Componente {
     }
 
     private void construirTabela() {
-
-
         // Colunas da tabela
         String[] columnNames = {
+                "Id",
                 "Nome",
                 "Idade na Matrícula",
                 "E-mail",
@@ -43,20 +43,11 @@ public class TabelaAlunos extends JPanel implements Componente {
                 "Deletar"
         };
 
-        // Dados da tabela (para teste)
-        Object[][] data = {
-                {"João", 20, "joao@email.com", "Rua 1, 123", "12345-678", "(11) 1234-5678", "joao123", "Curso 1", true, "Deletar"},
-                {"Maria", 22, "maria@email.com", "Rua 2, 456", "23456-789", "(22) 2345-6789", "maria456", "Curso 2", false, "Deletar"},
-                // adicione mais linhas conforme necessário
-        };
-
         // Modelo da tabela
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        model = new DefaultTableModel(columnNames, 0);
 
         // Tabela
-
         JTable table = new JTable(model);
-
 
         // Adiciona a tabela a um painel de rolagem
         JScrollPane scrollPane = new JScrollPane(table);
@@ -69,8 +60,36 @@ public class TabelaAlunos extends JPanel implements Componente {
         table.getColumn("Deletar").setCellRenderer(botaoDeletar);
         table.getColumn("Deletar").setCellEditor(botaoDeletar);
 
-
-
+        // Atualiza a tabela ao iniciar o programa
+        atualizaTabela();
     }
 
+    public void atualizaTabela() {
+        // Limpa a tabela
+        model.setRowCount(0);
+
+        // Buscar estudantes do banco de dados
+        EstudanteRepository estudanteRepository = new EstudanteRepository();
+        List<EstudanteModel> estudantes = estudanteRepository.findAll();
+
+        // Adicionar estudantes à tabela
+        for (EstudanteModel estudante : estudantes) {
+            Object[] rowData = {
+                    estudante.getId(),
+                    estudante.getNomeCompleto(),
+                    estudante.getAnoMatricula(),
+                    estudante.getEmail(),
+                    estudante.getEndereco(),
+                    estudante.getCEP(),
+                    estudante.getTelefone(),
+                    estudante.getUsuario(),
+                    estudante.getCurso(),
+                    estudante.isAtivo(),
+                    "Deletar"
+            };
+            model.addRow(rowData);
+        }
+
+        System.out.println("Tabela atualizada.");
+    }
 }

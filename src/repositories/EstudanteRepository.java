@@ -20,7 +20,7 @@ public class EstudanteRepository {
 
     // C -> Criar um novo usuário na tabela
     public void insert(EstudanteModel estudante) {
-        String sql = "INSERT INTO estudante(nomeCompleto, anoMatricula, email, endereco, CEP, telefone, usuario, senha, curso, observacoes, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO estudante(nomeCompleto, anoMatricula, email, endereco, CEP, telefone, usuario, senha, curso, observacoes, isAtivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, estudante.getNomeCompleto());
@@ -42,7 +42,10 @@ public class EstudanteRepository {
                 estudante.setId(resultado.getInt(1));
             }
 
+            System.out.println("[SUCESSO] Estudante inserido com sucesso.");
+
         } catch (SQLException e) {
+            System.out.println("[ERRO] Erro ao inserir aluno.");
             throw new RuntimeException(e);
         }
     }
@@ -72,8 +75,10 @@ public class EstudanteRepository {
                 estudante.setAtivo(resultado.getBoolean("isAtivo"));
 
                 estudantes.add(estudante);
+                System.out.println("[SUCESSO] Estudantes encontrados com sucesso.");
             }
         } catch (SQLException e) {
+            System.out.println("[ERRO] Erro ao encontrar os alunos no banco de dados.");
             throw new RuntimeException(e);
         }
 
@@ -82,7 +87,7 @@ public class EstudanteRepository {
 
     // U -> Update (atualizar os dados dos alunos na tabela)
     public void update(EstudanteModel estudante) {
-        String sql = "UPDATE estudante SET nomeCompleto = ?, anoMatricula = ?, email = ?, endereco = ?, CEP = ?, telefone = ?, usuario = ?, senha = ?, curso = ?, observacoes = ?, ativo = ? WHERE id = ?";
+        String sql = "UPDATE estudante SET nomeCompleto = ?, anoMatricula = ?, email = ?, endereco = ?, CEP = ?, telefone = ?, usuario = ?, senha = ?, curso = ?, observacoes = ?, isAtivo = ? WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, estudante.getNomeCompleto());
@@ -99,7 +104,9 @@ public class EstudanteRepository {
             statement.setLong(12, estudante.getId());
 
             statement.executeUpdate();
+            System.out.println("[SUCESSO] Tabela atualizada com sucesso.");
         } catch (SQLException e) {
+            System.out.println("[ERRO] Falha ao atualizar a tabela.");
             throw new RuntimeException(e);
         }
     }
@@ -112,7 +119,9 @@ public class EstudanteRepository {
             statement.setInt(1, idEstudante);
 
             statement.executeUpdate();
+            System.out.println("[SUCESSO] Estudante excluido da tabela com sucesso.");
         } catch (SQLException e) {
+            System.out.println("[ERRO] Falha ao excluir estudante da tabela.");
             throw new RuntimeException(e);
         }
     }

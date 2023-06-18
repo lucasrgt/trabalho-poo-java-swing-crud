@@ -17,7 +17,7 @@ public class EstudanteModel implements Serializable {
     private String observacoes;
     private boolean isAtivo;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

@@ -3,6 +3,7 @@ package ui.components.forms;
 import model.EstudanteModel;
 import repositories.EstudanteRepository;
 import ui.components.Componente;
+import ui.components.table.TabelaAlunos;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +20,10 @@ public class UsuarioFormPainel extends JPanel implements Componente {
     private JComboBox<String> campoCurso;
     private JTextArea campoObservacoes;
     private JRadioButton campoAtivo;
+    private TabelaAlunos tabelaAlunos;
 
-    public UsuarioFormPainel() {
+    public UsuarioFormPainel(TabelaAlunos tabelaAlunos) {
+        this.tabelaAlunos = tabelaAlunos;
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
 
@@ -131,6 +134,8 @@ public class UsuarioFormPainel extends JPanel implements Componente {
             novoEstudante.setAtivo(campoAtivo.isSelected());
 
             new EstudanteRepository().insert(novoEstudante);
+            tabelaAlunos.atualizaTabela();
+
         });
 
         add(cadastrarButton, getDefaultConstraints());

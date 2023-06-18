@@ -13,5 +13,5 @@ CREATE TABLE IF NOT EXISTS estudante
     senha            VARCHAR(100) NOT NULL,
     curso            VARCHAR(200) NOT NULL,
     observacoes      VARCHAR(300),
-    ativo            boolean      NOT NULL
+    isAtivo            boolean      NOT NULL
 );

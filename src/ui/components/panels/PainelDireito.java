@@ -8,7 +8,10 @@ import java.awt.*;
 
 public class PainelDireito extends JPanel implements Componente {
 
-    public PainelDireito() {
+    TabelaAlunos tabelaAlunos;
+
+    public PainelDireito(TabelaAlunos tabelaAlunos) {
+        this.tabelaAlunos = tabelaAlunos;
         setBackground(new Color(229, 237, 245));
         setLayout(new BorderLayout());
         construirFilhos();
@@ -17,7 +20,6 @@ public class PainelDireito extends JPanel implements Componente {
     @Override
     public void construirFilhos() {
         // Adiciona a tabela dos alunos
-        JPanel tabelaAlunos = new TabelaAlunos();
         add(tabelaAlunos, BorderLayout.CENTER);
     }
 }
