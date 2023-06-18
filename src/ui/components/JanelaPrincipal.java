@@ -6,7 +6,7 @@ import ui.components.panels.PainelEsquerdo;
 import javax.swing.*;
 import java.awt.*;
 
-public class JanelaPrincipal extends JFrame {
+public class JanelaPrincipal extends JFrame implements Componente {
 
     /** Cria a janela principal do programa com os parâmetros pré definidos**/
     public JanelaPrincipal() {
@@ -15,8 +15,7 @@ public class JanelaPrincipal extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Tamanho e layout
-        setSize(1600, 900);
-        setResizable(false);
+        setMinimumSize(new Dimension(800, 600));
         setLayout(new GridLayout(1, 2));
 
         // Construir filhos
@@ -26,7 +25,7 @@ public class JanelaPrincipal extends JFrame {
         setVisible(true);
     }
 
-    private void construirFilhos() {
+    public void construirFilhos() {
         // Painel Esquerdo
         JPanel painelEsquerdo = new PainelEsquerdo();
         JScrollPane scrollEsquerdo = new JScrollPane(painelEsquerdo);

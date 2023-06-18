@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexaoFactory {
-    private static final String URL = "";
-    private static final String USER = "";
-    private static final String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://localhost:3306/java_crud_swing";
+    private static final String USER = "root";
+    private static final String PASSWORD = "123456";
     private static Connection conexao;
 
-    private ConexaoFactory() {}
+    public ConexaoFactory() {}
 
     public Connection getConexaoSingleton() {
         if(conexao == null) {

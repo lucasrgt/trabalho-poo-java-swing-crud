@@ -1,17 +1,30 @@
 package ui.components.forms;
 
+import model.EstudanteModel;
+import repositories.EstudanteRepository;
+import ui.components.Componente;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class UsuarioFormPainel extends JPanel {
+public class UsuarioFormPainel extends JPanel implements Componente {
 
-    /** Constroi o formulário com os campos específicos **/
+    /**
+     * Constroi o formulário com os campos específicos
+     **/
     public UsuarioFormPainel() {
         // Tamanho e layout
 
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
 
+        // Elementos filhos
+        construirFilhos();
+
+    }
+
+    @Override
+    public void construirFilhos() {
         // Campos do formulário
 
         // Nome completo
@@ -49,10 +62,11 @@ public class UsuarioFormPainel extends JPanel {
 
         // Botão para cadastrar
         constroiBotaoCadastrar();
-
     }
 
-    /** Dimensões e espaçamentos padrões dos campos do formulário **/
+    /**
+     * Dimensões e espaçamentos padrões dos campos do formulário
+     **/
     private GridBagConstraints getDefaultConstraints() {
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -68,16 +82,15 @@ public class UsuarioFormPainel extends JPanel {
 
         return constraints;
     }
+
     private void constroiCampoFormulario(String nome) {
         add(new JLabel(nome + ": "), getDefaultConstraints());
 
         JTextField campo = new JTextField();
-        campo.setBorder(BorderFactory.createCompoundBorder(
-                campo.getBorder(),
+        campo.setBorder(BorderFactory.createCompoundBorder(campo.getBorder(),
 
                 // Espaçamento interno do campo do formulário
-                BorderFactory.createEmptyBorder(8, 8, 8, 8)
-        ));
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)));
 
         add(campo, getDefaultConstraints());
     }
@@ -86,12 +99,10 @@ public class UsuarioFormPainel extends JPanel {
         add(new JLabel("Senha: "), getDefaultConstraints());
         JPasswordField campoSenha = new JPasswordField();
 
-        campoSenha.setBorder(BorderFactory.createCompoundBorder(
-                campoSenha.getBorder(),
+        campoSenha.setBorder(BorderFactory.createCompoundBorder(campoSenha.getBorder(),
 
                 // Espaçamento interno do campo do formulário
-                BorderFactory.createEmptyBorder(8, 8, 8, 8)
-        ));
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)));
 
         add(campoSenha, getDefaultConstraints());
     }
@@ -105,12 +116,10 @@ public class UsuarioFormPainel extends JPanel {
     private void constroiCampoObservacoes() {
         add(new JLabel("Observações: "), getDefaultConstraints());
         JTextArea observacoesArea = new JTextArea();
-        observacoesArea.setBorder(BorderFactory.createCompoundBorder(
-                observacoesArea.getBorder(),
+        observacoesArea.setBorder(BorderFactory.createCompoundBorder(observacoesArea.getBorder(),
 
                 // Espaçamento interno do campo do formulário
-                BorderFactory.createEmptyBorder(8, 8, 8, 8)
-        ));
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)));
         add(observacoesArea, getDefaultConstraints());
     }
 
@@ -129,6 +138,18 @@ public class UsuarioFormPainel extends JPanel {
 
     private void constroiBotaoCadastrar() {
         JButton cadastrarButton = new JButton("Cadastrar");
+
+        cadastrarButton.addActionListener(e -> {
+            EstudanteModel novoEstudante = new EstudanteModel();
+
+            // Configure o novoEstudante com os dados do formulário...
+            // Por exemplo: novoEstudante.setNomeCompleto(campoNomeCompleto.getText());
+
+            new EstudanteRepository().insert(novoEstudante);
+        });
+
         add(cadastrarButton, getDefaultConstraints());
     }
+
+
 }

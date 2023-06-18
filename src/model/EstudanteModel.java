@@ -3,6 +3,7 @@ package model;
 import enums.CursosEnum;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class EstudanteModel implements Serializable {
     private int id;
@@ -17,4 +18,114 @@ public class EstudanteModel implements Serializable {
     private CursosEnum curso;
     private String observacoes;
     private boolean isAtivo;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public String getAnoMatricula() {
+        return anoMatricula;
+    }
+
+    public void setAnoMatricula(String anoMatricula) {
+        this.anoMatricula = anoMatricula;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
+    }
+
+    public int getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public CursosEnum getCurso() {
+        return curso;
+    }
+
+    public void setCurso(CursosEnum curso) {
+        this.curso = curso;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
+    }
+
+    // Equals and Hashcode gerado automaticamente com o IntelliJ
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EstudanteModel that = (EstudanteModel) o;
+        return id == that.id && telefone == that.telefone && isAtivo == that.isAtivo && Objects.equals(nomeCompleto, that.nomeCompleto) && Objects.equals(anoMatricula, that.anoMatricula) && Objects.equals(email, that.email) && Objects.equals(endereco, that.endereco) && Objects.equals(CEP, that.CEP) && Objects.equals(usuario, that.usuario) && Objects.equals(senha, that.senha) && curso == that.curso && Objects.equals(observacoes, that.observacoes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nomeCompleto, anoMatricula, email, endereco, CEP, telefone, usuario, senha, curso, observacoes, isAtivo);
+    }
 }
