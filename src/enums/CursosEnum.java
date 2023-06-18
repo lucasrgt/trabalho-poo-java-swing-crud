@@ -1,9 +1,0 @@
-package enums;
-
-public enum CursosEnum {
-    ADMINISTRACAO,
-    ANALISE_E_DESENVOLVIMENTO_DE_SISTEMAS,
-    MEDICINA,
-    ENGENHARIA_ELETRICA,
-    DIREITO
-}

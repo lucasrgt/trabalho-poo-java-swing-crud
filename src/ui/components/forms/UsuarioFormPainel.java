@@ -8,65 +8,42 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UsuarioFormPainel extends JPanel implements Componente {
+    private JTextField campoNomeCompleto;
+    private JTextField campoIdadeMatricula;
+    private JTextField campoEmail;
+    private JTextField campoEndereco;
+    private JTextField campoCEP;
+    private JTextField campoTelefone;
+    private JTextField campoUsuario;
+    private JPasswordField campoSenha;
+    private JComboBox<String> campoCurso;
+    private JTextArea campoObservacoes;
+    private JRadioButton campoAtivo;
 
-    /**
-     * Constroi o formulário com os campos específicos
-     **/
     public UsuarioFormPainel() {
-        // Tamanho e layout
-
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
 
-        // Elementos filhos
         construirFilhos();
-
     }
 
     @Override
     public void construirFilhos() {
-        // Campos do formulário
+        campoNomeCompleto = constroiCampoFormulario("Nome completo");
+        campoIdadeMatricula = constroiCampoFormulario("Idade na matrícula");
+        campoEmail = constroiCampoFormulario("E-mail");
+        campoEndereco = constroiCampoFormulario("Endereço");
+        campoCEP = constroiCampoFormulario("CEP");
+        campoTelefone = constroiCampoFormulario("Telefone");
+        campoUsuario = constroiCampoFormulario("Usuário");
+        campoSenha = constroiCampoSenha();
+        campoCurso = constroiCampoCurso();
+        campoObservacoes = constroiCampoObservacoes();
+        campoAtivo = constroiCampoAtivo();
 
-        // Nome completo
-        constroiCampoFormulario("Nome completo");
-
-        // Idade na matrícula
-        constroiCampoFormulario("Idade na matrícula");
-
-        // E-mail
-        constroiCampoFormulario("E-mail");
-
-        // Endereço
-        constroiCampoFormulario("Endereço");
-
-        // CEP
-        constroiCampoFormulario("CEP");
-
-        // Telefone
-        constroiCampoFormulario("Telefone");
-
-        // Usuário
-        constroiCampoFormulario("Usuário");
-
-        // Senha
-        constroiCampoSenha();
-
-        // Curso
-        constroiCampoCurso();
-
-        // Observações
-        constroiCampoObservacoes();
-
-        // Ativo
-        constroiCampoAtivo();
-
-        // Botão para cadastrar
         constroiBotaoCadastrar();
     }
 
-    /**
-     * Dimensões e espaçamentos padrões dos campos do formulário
-     **/
     private GridBagConstraints getDefaultConstraints() {
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -83,47 +60,45 @@ public class UsuarioFormPainel extends JPanel implements Componente {
         return constraints;
     }
 
-    private void constroiCampoFormulario(String nome) {
+    private JTextField constroiCampoFormulario(String nome) {
         add(new JLabel(nome + ": "), getDefaultConstraints());
 
         JTextField campo = new JTextField();
         campo.setBorder(BorderFactory.createCompoundBorder(campo.getBorder(),
-
-                // Espaçamento interno do campo do formulário
                 BorderFactory.createEmptyBorder(8, 8, 8, 8)));
 
         add(campo, getDefaultConstraints());
+        return campo;
     }
 
-    private void constroiCampoSenha() {
+    private JPasswordField constroiCampoSenha() {
         add(new JLabel("Senha: "), getDefaultConstraints());
         JPasswordField campoSenha = new JPasswordField();
 
         campoSenha.setBorder(BorderFactory.createCompoundBorder(campoSenha.getBorder(),
-
-                // Espaçamento interno do campo do formulário
                 BorderFactory.createEmptyBorder(8, 8, 8, 8)));
 
         add(campoSenha, getDefaultConstraints());
+        return campoSenha;
     }
 
-    private void constroiCampoCurso() {
+    private JComboBox<String> constroiCampoCurso() {
         add(new JLabel("Curso: "), getDefaultConstraints());
         JComboBox<String> cursoBox = new JComboBox<>(new String[]{"Curso 1", "Curso 2", "Curso 3"});
         add(cursoBox, getDefaultConstraints());
+        return cursoBox;
     }
 
-    private void constroiCampoObservacoes() {
+    private JTextArea constroiCampoObservacoes() {
         add(new JLabel("Observações: "), getDefaultConstraints());
         JTextArea observacoesArea = new JTextArea();
         observacoesArea.setBorder(BorderFactory.createCompoundBorder(observacoesArea.getBorder(),
-
-                // Espaçamento interno do campo do formulário
                 BorderFactory.createEmptyBorder(8, 8, 8, 8)));
         add(observacoesArea, getDefaultConstraints());
+        return observacoesArea;
     }
 
-    private void constroiCampoAtivo() {
+    private JRadioButton constroiCampoAtivo() {
         add(new JLabel("Ativo: "), getDefaultConstraints());
         JRadioButton simButton = new JRadioButton("Sim");
         JRadioButton naoButton = new JRadioButton("Não");
@@ -134,6 +109,7 @@ public class UsuarioFormPainel extends JPanel implements Componente {
 
         add(simButton, getDefaultConstraints());
         add(naoButton, getDefaultConstraints());
+        return simButton;
     }
 
     private void constroiBotaoCadastrar() {
@@ -142,14 +118,21 @@ public class UsuarioFormPainel extends JPanel implements Componente {
         cadastrarButton.addActionListener(e -> {
             EstudanteModel novoEstudante = new EstudanteModel();
 
-            // Configure o novoEstudante com os dados do formulário...
-            // Por exemplo: novoEstudante.setNomeCompleto(campoNomeCompleto.getText());
+            novoEstudante.setNomeCompleto(campoNomeCompleto.getText());
+            novoEstudante.setAnoMatricula(campoIdadeMatricula.getText());
+            novoEstudante.setEmail(campoEmail.getText());
+            novoEstudante.setEndereco(campoEndereco.getText());
+            novoEstudante.setCEP(campoCEP.getText());
+            novoEstudante.setTelefone(campoTelefone.getText());
+            novoEstudante.setUsuario(campoUsuario.getText());
+            novoEstudante.setSenha(new String(campoSenha.getPassword()));
+            novoEstudante.setCurso(campoCurso.getSelectedItem().toString());
+            novoEstudante.setObservacoes(campoObservacoes.getText());
+            novoEstudante.setAtivo(campoAtivo.isSelected());
 
             new EstudanteRepository().insert(novoEstudante);
         });
 
         add(cadastrarButton, getDefaultConstraints());
     }
-
-
 }

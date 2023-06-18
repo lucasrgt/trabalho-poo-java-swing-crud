@@ -2,7 +2,6 @@ package repositories;
 
 import model.EstudanteModel;
 import database.ConexaoFactory;
-import enums.CursosEnum;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,33 +9,37 @@ import java.util.List;
 
 public class EstudanteRepository {
 
-    private Connection connection;
+    private final Connection connection;
 
     public EstudanteRepository() {
-        this.connection = new ConexaoFactory().getConexaoSingleton();
+        // Estabelece a conexao com o banco de dados
+        this.connection = new ConexaoFactory().getConexao();
     }
 
+    // Implementação do CRUD
+
+    // C -> Criar um novo usuário na tabela
     public void insert(EstudanteModel estudante) {
-        String sql = "INSERT INTO estudante(nomeCompleto, anoMatricula, email, endereco, CEP, telefone, usuario, senha, curso, observacoes, isAtivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO estudante(nomeCompleto, anoMatricula, email, endereco, CEP, telefone, usuario, senha, curso, observacoes, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, estudante.getNomeCompleto());
-            stmt.setString(2, estudante.getAnoMatricula());
-            stmt.setString(3, estudante.getEmail());
-            stmt.setString(4, estudante.getEndereco());
-            stmt.setString(5, estudante.getCEP());
-            stmt.setInt(6, estudante.getTelefone());
-            stmt.setString(7, estudante.getUsuario());
-            stmt.setString(8, estudante.getSenha());
-            stmt.setString(9, estudante.getCurso().name());
-            stmt.setString(10, estudante.getObservacoes());
-            stmt.setBoolean(11, estudante.isAtivo());
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, estudante.getNomeCompleto());
+            statement.setString(2, estudante.getAnoMatricula());
+            statement.setString(3, estudante.getEmail());
+            statement.setString(4, estudante.getEndereco());
+            statement.setString(5, estudante.getCEP());
+            statement.setString(6, estudante.getTelefone());
+            statement.setString(7, estudante.getUsuario());
+            statement.setString(8, estudante.getSenha());
+            statement.setString(9, estudante.getCurso());
+            statement.setString(10, estudante.getObservacoes());
+            statement.setBoolean(11, estudante.isAtivo());
 
-            stmt.executeUpdate();
+            statement.executeUpdate();
 
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                estudante.setId(rs.getInt(1));
+            ResultSet resultado = statement.getGeneratedKeys();
+            if (resultado.next()) {
+                estudante.setId(resultado.getInt(1));
             }
 
         } catch (SQLException e) {
@@ -44,28 +47,29 @@ public class EstudanteRepository {
         }
     }
 
+    // R -> Retrieve (puxar os dados dos estudantes do banco de dados para a tabela)
     public List<EstudanteModel> findAll() {
         List<EstudanteModel> estudantes = new ArrayList<>();
 
         String sql = "SELECT * FROM estudante";
 
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultado = statement.executeQuery();
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 EstudanteModel estudante = new EstudanteModel();
-                estudante.setId(rs.getInt("id"));
-                estudante.setNomeCompleto(rs.getString("nomeCompleto"));
-                estudante.setAnoMatricula(rs.getString("anoMatricula"));
-                estudante.setEmail(rs.getString("email"));
-                estudante.setEndereco(rs.getString("endereco"));
-                estudante.setCEP(rs.getString("CEP"));
-                estudante.setTelefone(rs.getInt("telefone"));
-                estudante.setUsuario(rs.getString("usuario"));
-                estudante.setSenha(rs.getString("senha"));
-                estudante.setCurso(CursosEnum.valueOf(rs.getString("curso")));
-                estudante.setObservacoes(rs.getString("observacoes"));
-                estudante.setAtivo(rs.getBoolean("isAtivo"));
+                estudante.setId(resultado.getInt("id"));
+                estudante.setNomeCompleto(resultado.getString("nomeCompleto"));
+                estudante.setAnoMatricula(resultado.getString("anoMatricula"));
+                estudante.setEmail(resultado.getString("email"));
+                estudante.setEndereco(resultado.getString("endereco"));
+                estudante.setCEP(resultado.getString("CEP"));
+                estudante.setTelefone(resultado.getString("telefone"));
+                estudante.setUsuario(resultado.getString("usuario"));
+                estudante.setSenha(resultado.getString("senha"));
+                estudante.setCurso(resultado.getString("curso"));
+                estudante.setObservacoes(resultado.getString("observacoes"));
+                estudante.setAtivo(resultado.getBoolean("isAtivo"));
 
                 estudantes.add(estudante);
             }
@@ -76,36 +80,38 @@ public class EstudanteRepository {
         return estudantes;
     }
 
+    // U -> Update (atualizar os dados dos alunos na tabela)
     public void update(EstudanteModel estudante) {
-        String sql = "UPDATE estudante SET nomeCompleto = ?, anoMatricula = ?, email = ?, endereco = ?, CEP = ?, telefone = ?, usuario = ?, senha = ?, curso = ?, observacoes = ?, isAtivo = ? WHERE id = ?";
+        String sql = "UPDATE estudante SET nomeCompleto = ?, anoMatricula = ?, email = ?, endereco = ?, CEP = ?, telefone = ?, usuario = ?, senha = ?, curso = ?, observacoes = ?, ativo = ? WHERE id = ?";
 
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, estudante.getNomeCompleto());
-            stmt.setString(2, estudante.getAnoMatricula());
-            stmt.setString(3, estudante.getEmail());
-            stmt.setString(4, estudante.getEndereco());
-            stmt.setString(5, estudante.getCEP());
-            stmt.setInt(6, estudante.getTelefone());
-            stmt.setString(7, estudante.getUsuario());
-            stmt.setString(8, estudante.getSenha());
-            stmt.setString(9, estudante.getCurso().name());
-            stmt.setString(10, estudante.getObservacoes());
-            stmt.setBoolean(11, estudante.isAtivo());
-            stmt.setInt(12, estudante.getId());
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, estudante.getNomeCompleto());
+            statement.setString(2, estudante.getAnoMatricula());
+            statement.setString(3, estudante.getEmail());
+            statement.setString(4, estudante.getEndereco());
+            statement.setString(5, estudante.getCEP());
+            statement.setString(6, estudante.getTelefone());
+            statement.setString(7, estudante.getUsuario());
+            statement.setString(8, estudante.getSenha());
+            statement.setString(9, estudante.getCurso());
+            statement.setString(10, estudante.getObservacoes());
+            statement.setBoolean(11, estudante.isAtivo());
+            statement.setLong(12, estudante.getId());
 
-            stmt.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    // D -> Deletar um estudante da tabela
     public void delete(int idEstudante) {
         String sql = "DELETE FROM estudante WHERE id = ?";
 
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, idEstudante);
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, idEstudante);
 
-            stmt.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

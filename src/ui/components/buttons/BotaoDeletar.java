@@ -31,10 +31,10 @@ public class BotaoDeletar extends AbstractCellEditor implements TableCellEditor,
                 // Obtenha o ID do estudante na linha selecionada
                 int idEstudante = (int) table.getModel().getValueAt(row, 0);  // Supondo que o ID esteja na coluna 0
 
-                // Remova o estudante do banco de dados
+                // Remove o estudante do banco de dados
                 new EstudanteRepository().delete(idEstudante);
 
-                // Remova a linha da tabela
+                // Remove a linha da tabela
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 model.removeRow(row);
 

@@ -2,7 +2,7 @@ package ui;
 
 import ui.components.JanelaPrincipal;
 
-public class ConstruirGUI {
+public class GUI {
 
     /** Método para construir a interface gráfica **/
     public static void construir() {

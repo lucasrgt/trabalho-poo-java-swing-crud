@@ -1,4 +1,4 @@
-import ui.ConstruirGUI;
+import ui.GUI;
 
 import javax.swing.*;
 
@@ -8,7 +8,7 @@ public class Main {
         // Construir a interface gráfica do sistema
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                ConstruirGUI.construir();
+                GUI.construir();
             }
         });
     }

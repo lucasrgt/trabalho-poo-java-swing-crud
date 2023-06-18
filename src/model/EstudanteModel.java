@@ -1,7 +1,5 @@
 package model;
 
-import enums.CursosEnum;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,14 +10,14 @@ public class EstudanteModel implements Serializable {
     private String email;
     private String endereco;
     private String CEP;
-    private int telefone;
+    private String telefone;
     private String usuario;
     private String senha;
-    private CursosEnum curso;
+    private String curso;
     private String observacoes;
     private boolean isAtivo;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -67,11 +65,11 @@ public class EstudanteModel implements Serializable {
         this.CEP = CEP;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -91,11 +89,11 @@ public class EstudanteModel implements Serializable {
         this.senha = senha;
     }
 
-    public CursosEnum getCurso() {
+    public String getCurso() {
         return curso;
     }
 
-    public void setCurso(CursosEnum curso) {
+    public void setCurso(String curso) {
         this.curso = curso;
     }
 

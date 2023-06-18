@@ -4,11 +4,11 @@ CREATE TABLE IF NOT EXISTS estudante
 (
     id               int AUTO_INCREMENT PRIMARY KEY,
     nomeCompleto     VARCHAR(255) NOT NULL,
-    idadeNaMatricula int          NOT NULL,
+    anoMatricula     VARCHAR(4)          NOT NULL,
     email            VARCHAR(120) NOT NULL,
     endereco         VARCHAR(200) NOT NULL,
     cep              VARCHAR(200),
-    telefone         int,
+    telefone         VARCHAR(11),
     usuario          VARCHAR(50)  NOT NULL,
     senha            VARCHAR(100) NOT NULL,
     curso            VARCHAR(200) NOT NULL,

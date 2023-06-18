@@ -12,7 +12,7 @@ public class ConexaoFactory {
 
     public ConexaoFactory() {}
 
-    public Connection getConexaoSingleton() {
+    public Connection getConexao() {
         if(conexao == null) {
             try {
                 conexao = DriverManager.getConnection(URL, USER, PASSWORD);
