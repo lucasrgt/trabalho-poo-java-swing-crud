@@ -85,6 +85,10 @@ public class EstudanteRepository {
         return estudantes;
     }
 
+
+
+
+
     // U -> Update (atualizar os dados dos alunos na tabela)
     public void update(EstudanteModel estudante) {
         String sql = "UPDATE estudante SET nomeCompleto = ?, anoMatricula = ?, email = ?, endereco = ?, CEP = ?, telefone = ?, usuario = ?, senha = ?, curso = ?, observacoes = ?, isAtivo = ? WHERE id = ?";

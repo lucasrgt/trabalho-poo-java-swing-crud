@@ -15,6 +15,8 @@ public class BotaoDeletar extends AbstractCellEditor implements TableCellEditor,
     JButton editButton;
     String text;
     JTable table;
+    int editRow;
+    int editColumn;
 
     public BotaoDeletar() {
 
@@ -26,19 +28,15 @@ public class BotaoDeletar extends AbstractCellEditor implements TableCellEditor,
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 fireEditingStopped();
-                int row = table.getSelectedRow();
 
-                // Obtenha o ID do estudante na linha selecionada
-                int idEstudante = (int) table.getModel().getValueAt(row, 0);  // Supondo que o ID esteja na coluna 0
+                int idEstudante = (int) table.getModel().getValueAt(editRow, 0);
 
                 // Remove o estudante do banco de dados
                 new EstudanteRepository().delete(idEstudante);
 
                 // Remove a linha da tabela
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.removeRow(row);
-
-                // Atualize a tabela...
+                model.removeRow(editRow);
             }
         });
     }
@@ -46,7 +44,7 @@ public class BotaoDeletar extends AbstractCellEditor implements TableCellEditor,
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         if (value == null) {
-            renderButton.setText("");
+            renderButton.setText("Deletar");
         } else {
             renderButton.setText(value.toString());
         }
@@ -56,11 +54,13 @@ public class BotaoDeletar extends AbstractCellEditor implements TableCellEditor,
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         if (value == null) {
-            editButton.setText("");
+            editButton.setText("Deletar");
         } else {
             editButton.setText(value.toString());
         }
         this.table = table;
+        this.editRow = row;
+        this.editColumn = column;
         return editButton;
     }
 

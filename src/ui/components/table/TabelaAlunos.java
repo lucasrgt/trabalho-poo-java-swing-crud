@@ -5,19 +5,21 @@ import repositories.EstudanteRepository;
 import ui.components.Componente;
 import ui.components.buttons.BotaoDeletar;
 
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TabelaAlunos extends JPanel implements Componente {
 
     private DefaultTableModel model;
+    private List<EstudanteModel> estudantes;
 
     public TabelaAlunos() {
+        estudantes = new ArrayList<>();
         setBackground(new Color(229, 237, 245));
-        setLayout(new BorderLayout());  // Adiciona o BorderLayout
+        setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
         construirFilhos();
     }
@@ -28,8 +30,7 @@ public class TabelaAlunos extends JPanel implements Componente {
     }
 
     private void construirTabela() {
-        // Colunas da tabela
-        String[] columnNames = {
+        String[] colunas = {
                 "Id",
                 "Nome",
                 "Idade na Matrícula",
@@ -43,36 +44,69 @@ public class TabelaAlunos extends JPanel implements Componente {
                 "Deletar"
         };
 
-        // Modelo da tabela
-        model = new DefaultTableModel(columnNames, 0);
+        model = new DefaultTableModel(colunas, 0) {
+            @Override
+            public void setValueAt(Object aValue, int row, int column) {
+                super.setValueAt(aValue, row, column);
 
-        // Tabela
+                EstudanteModel estudante = estudantes.get(row);
+                switch (column) {
+                    case 1:
+                        estudante.setNomeCompleto((String) aValue);
+                        break;
+                    case 2:
+                        estudante.setAnoMatricula((String) aValue);
+                        break;
+                    case 3:
+                        estudante.setEmail((String) aValue);
+                        break;
+                    case 4:
+                        estudante.setEndereco((String) aValue);
+                        break;
+                    case 5:
+                        estudante.setCEP((String) aValue);
+                        break;
+                    case 6:
+                        estudante.setTelefone((String) aValue);
+                        break;
+                    case 7:
+                        estudante.setUsuario((String) aValue);
+                        break;
+                    case 8:
+                        estudante.setCurso((String) aValue);
+                        break;
+                    case 9:
+                        estudante.setAtivo((boolean) aValue);
+                        break;
+
+                }
+
+                // Atualiza o estudante com os novos dados
+                EstudanteRepository estudanteRepository = new EstudanteRepository();
+                estudanteRepository.update(estudante);
+
+                atualizaTabela();
+            }
+        };
+
         JTable table = new JTable(model);
-
-        // Adiciona a tabela a um painel de rolagem
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
-
-        // Adiciona o painel de rolagem ao painel
         add(scrollPane, BorderLayout.CENTER);
 
         BotaoDeletar botaoDeletar = new BotaoDeletar();
         table.getColumn("Deletar").setCellRenderer(botaoDeletar);
         table.getColumn("Deletar").setCellEditor(botaoDeletar);
 
-        // Atualiza a tabela ao iniciar o programa
         atualizaTabela();
     }
 
     public void atualizaTabela() {
-        // Limpa a tabela
         model.setRowCount(0);
 
-        // Buscar estudantes do banco de dados
         EstudanteRepository estudanteRepository = new EstudanteRepository();
-        List<EstudanteModel> estudantes = estudanteRepository.findAll();
+        estudantes = estudanteRepository.findAll();
 
-        // Adicionar estudantes à tabela
         for (EstudanteModel estudante : estudantes) {
             Object[] rowData = {
                     estudante.getId(),

@@ -9,17 +9,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UsuarioFormPainel extends JPanel implements Componente {
-    private JTextField campoNomeCompleto;
-    private JTextField campoIdadeMatricula;
-    private JTextField campoEmail;
-    private JTextField campoEndereco;
-    private JTextField campoCEP;
-    private JTextField campoTelefone;
-    private JTextField campoUsuario;
-    private JPasswordField campoSenha;
-    private JComboBox<String> campoCurso;
-    private JTextArea campoObservacoes;
-    private JRadioButton campoAtivo;
+    public JTextField campoNomeCompleto;
+    public JTextField campoIdadeMatricula;
+    public JTextField campoEmail;
+    public JTextField campoEndereco;
+    public JTextField campoCEP;
+    public JTextField campoTelefone;
+    public JTextField campoUsuario;
+    public JPasswordField campoSenha;
+    public JComboBox<String> campoCurso;
+    public JTextArea campoObservacoes;
+    public JRadioButton campoAtivo;
     private TabelaAlunos tabelaAlunos;
 
     public UsuarioFormPainel(TabelaAlunos tabelaAlunos) {
