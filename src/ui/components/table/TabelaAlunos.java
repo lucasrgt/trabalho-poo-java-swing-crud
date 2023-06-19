@@ -4,6 +4,7 @@ import model.EstudanteModel;
 import repositories.EstudanteRepository;
 import ui.components.Componente;
 import ui.components.buttons.BotaoDeletar;
+import ui.components.table.cell.CursoEditor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -38,7 +39,6 @@ public class TabelaAlunos extends JPanel implements Componente {
                 "Endereço",
                 "CEP",
                 "Telefone",
-                "Usuário",
                 "Curso",
                 "Ativo",
                 "Deletar"
@@ -70,12 +70,9 @@ public class TabelaAlunos extends JPanel implements Componente {
                         estudante.setTelefone((String) aValue);
                         break;
                     case 7:
-                        estudante.setUsuario((String) aValue);
-                        break;
-                    case 8:
                         estudante.setCurso((String) aValue);
                         break;
-                    case 9:
+                    case 8:
                         estudante.setAtivo((boolean) aValue);
                         break;
 
@@ -119,7 +116,6 @@ public class TabelaAlunos extends JPanel implements Componente {
                     estudante.getEndereco(),
                     estudante.getCEP(),
                     estudante.getTelefone(),
-                    estudante.getUsuario(),
                     estudante.getCurso(),
                     estudante.isAtivo(),
                     "Deletar"

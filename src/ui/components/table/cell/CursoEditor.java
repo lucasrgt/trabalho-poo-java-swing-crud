@@ -1,4 +1,4 @@
-package ui.components.table;
+package ui.components.table.cell;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
