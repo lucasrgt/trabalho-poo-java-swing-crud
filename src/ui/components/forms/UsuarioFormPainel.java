@@ -122,7 +122,7 @@ public class UsuarioFormPainel extends JPanel implements Componente {
             EstudanteModel novoEstudante = new EstudanteModel();
 
             novoEstudante.setNomeCompleto(campoNomeCompleto.getText());
-            novoEstudante.setAnoMatricula(campoIdadeMatricula.getText());
+            novoEstudante.setAnoMatricula(Integer.parseInt(campoIdadeMatricula.getText()));
             novoEstudante.setEmail(campoEmail.getText());
             novoEstudante.setEndereco(campoEndereco.getText());
             novoEstudante.setCEP(campoCEP.getText());

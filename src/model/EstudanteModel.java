@@ -6,7 +6,7 @@ import java.util.Objects;
 public class EstudanteModel implements Serializable {
     private int id;
     private String nomeCompleto;
-    private String anoMatricula;
+    private int anoMatricula;
     private String email;
     private String endereco;
     private String CEP;
@@ -33,11 +33,11 @@ public class EstudanteModel implements Serializable {
         this.nomeCompleto = nomeCompleto;
     }
 
-    public String getAnoMatricula() {
+    public int getAnoMatricula() {
         return anoMatricula;
     }
 
-    public void setAnoMatricula(String anoMatricula) {
+    public void setAnoMatricula(int anoMatricula) {
         this.anoMatricula = anoMatricula;
     }
 

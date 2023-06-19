@@ -55,7 +55,7 @@ public class TabelaAlunos extends JPanel implements Componente {
                         estudante.setNomeCompleto((String) aValue);
                         break;
                     case 2:
-                        estudante.setAnoMatricula((String) aValue);
+                        estudante.setAnoMatricula((int) aValue);
                         break;
                     case 3:
                         estudante.setEmail((String) aValue);

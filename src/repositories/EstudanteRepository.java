@@ -24,7 +24,7 @@ public class EstudanteRepository {
 
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, estudante.getNomeCompleto());
-            statement.setString(2, estudante.getAnoMatricula());
+            statement.setInt(2, estudante.getAnoMatricula());
             statement.setString(3, estudante.getEmail());
             statement.setString(4, estudante.getEndereco());
             statement.setString(5, estudante.getCEP());
@@ -63,7 +63,7 @@ public class EstudanteRepository {
                 EstudanteModel estudante = new EstudanteModel();
                 estudante.setId(resultado.getInt("id"));
                 estudante.setNomeCompleto(resultado.getString("nomeCompleto"));
-                estudante.setAnoMatricula(resultado.getString("anoMatricula"));
+                estudante.setAnoMatricula(resultado.getInt("anoMatricula"));
                 estudante.setEmail(resultado.getString("email"));
                 estudante.setEndereco(resultado.getString("endereco"));
                 estudante.setCEP(resultado.getString("CEP"));
@@ -95,7 +95,7 @@ public class EstudanteRepository {
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, estudante.getNomeCompleto());
-            statement.setString(2, estudante.getAnoMatricula());
+            statement.setInt(2, estudante.getAnoMatricula());
             statement.setString(3, estudante.getEmail());
             statement.setString(4, estudante.getEndereco());
             statement.setString(5, estudante.getCEP());
