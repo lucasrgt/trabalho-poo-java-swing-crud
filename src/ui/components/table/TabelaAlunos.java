@@ -40,6 +40,7 @@ public class TabelaAlunos extends JPanel implements Componente {
                 "CEP",
                 "Telefone",
                 "Curso",
+                "Observações",
                 "Ativo",
                 "Deletar"
         };
@@ -55,7 +56,7 @@ public class TabelaAlunos extends JPanel implements Componente {
                         estudante.setNomeCompleto((String) aValue);
                         break;
                     case 2:
-                        estudante.setAnoMatricula(Integer.parseInt((String) aValue));
+                        estudante.setAnoMatricula((String) aValue);
                         break;
                     case 3:
                         estudante.setEmail((String) aValue);
@@ -73,6 +74,9 @@ public class TabelaAlunos extends JPanel implements Componente {
                         estudante.setCurso((String) aValue);
                         break;
                     case 8:
+                        estudante.setObservacoes((String) aValue);
+                        break;
+                    case 9:
                         estudante.setAtivo((boolean) aValue);
                         break;
 
@@ -117,6 +121,7 @@ public class TabelaAlunos extends JPanel implements Componente {
                     estudante.getCEP(),
                     estudante.getTelefone(),
                     estudante.getCurso(),
+                    estudante.getObservacoes(),
                     estudante.isAtivo(),
                     "Deletar"
             };

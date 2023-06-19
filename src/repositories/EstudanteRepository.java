@@ -22,19 +22,21 @@ public class EstudanteRepository {
     // C -> Criar um novo usuário na tabela
     public void insert(EstudanteModel estudante) {
         if (estudante.getNomeCompleto() == null || estudante.getNomeCompleto().trim().isEmpty()
+                || estudante.getAnoMatricula() == null || estudante.getAnoMatricula().trim().isEmpty()
                 || estudante.getEmail() == null || estudante.getEmail().trim().isEmpty()
                 || estudante.getEndereco() == null || estudante.getEndereco().trim().isEmpty()
                 || estudante.getUsuario() == null || estudante.getUsuario().trim().isEmpty()
                 || estudante.getSenha() == null || estudante.getSenha().trim().isEmpty()
-                || estudante.getCurso() == null || estudante.getCurso().trim().isEmpty()) {
-            throw new IllegalArgumentException("[ERRO] Todos os campos devem ser preenchidos.");
+                || estudante.getCurso() == null || estudante.getCurso().trim().isEmpty())
+        {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos.");
         }
 
         String sql = "INSERT INTO estudante(nomeCompleto, anoMatricula, email, endereco, CEP, telefone, usuario, senha, curso, observacoes, isAtivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, estudante.getNomeCompleto());
-            statement.setInt(2, estudante.getAnoMatricula());
+            statement.setString(2, estudante.getAnoMatricula());
             statement.setString(3, estudante.getEmail());
             statement.setString(4, estudante.getEndereco());
             statement.setString(5, estudante.getCEP());
@@ -52,10 +54,10 @@ public class EstudanteRepository {
                 estudante.setId(resultado.getInt(1));
             }
 
-            System.out.println("[SUCESSO] Estudante inserido com sucesso.");
+            System.out.println("Estudante inserido com sucesso.");
 
         } catch (SQLException e) {
-            System.out.println("[ERRO] Erro ao inserir aluno.");
+            System.out.println("Erro ao inserir aluno.");
             throw new RuntimeException(e);
         }
     }
@@ -73,7 +75,7 @@ public class EstudanteRepository {
                 EstudanteModel estudante = new EstudanteModel();
                 estudante.setId(resultado.getInt("id"));
                 estudante.setNomeCompleto(resultado.getString("nomeCompleto"));
-                estudante.setAnoMatricula(resultado.getInt("anoMatricula"));
+                estudante.setAnoMatricula(resultado.getString("anoMatricula"));
                 estudante.setEmail(resultado.getString("email"));
                 estudante.setEndereco(resultado.getString("endereco"));
                 estudante.setCEP(resultado.getString("CEP"));
@@ -85,10 +87,10 @@ public class EstudanteRepository {
                 estudante.setAtivo(resultado.getBoolean("isAtivo"));
 
                 estudantes.add(estudante);
-                System.out.println("[SUCESSO] Estudantes encontrados com sucesso.");
+                System.out.println("Estudantes encontrados com sucesso.");
             }
         } catch (SQLException e) {
-            System.out.println("[ERRO] Erro ao encontrar os alunos no banco de dados.");
+            System.out.println("Erro ao encontrar os alunos no banco de dados.");
             throw new RuntimeException(e);
         }
 
@@ -102,19 +104,20 @@ public class EstudanteRepository {
     // U -> Update (atualizar os dados dos alunos na tabela)
     public void update(EstudanteModel estudante) {
         if (estudante.getNomeCompleto() == null || estudante.getNomeCompleto().trim().isEmpty()
+                || estudante.getAnoMatricula() == null || estudante.getAnoMatricula().trim().isEmpty()
                 || estudante.getEmail() == null || estudante.getEmail().trim().isEmpty()
                 || estudante.getEndereco() == null || estudante.getEndereco().trim().isEmpty()
                 || estudante.getUsuario() == null || estudante.getUsuario().trim().isEmpty()
                 || estudante.getSenha() == null || estudante.getSenha().trim().isEmpty()
                 || estudante.getCurso() == null || estudante.getCurso().trim().isEmpty()) {
-            throw new IllegalArgumentException("[ERRO] Campo preenchico com dados inválidos.");
+            throw new IllegalArgumentException("Campo preenchico com dados inválidos.");
         }
 
         String sql = "UPDATE estudante SET nomeCompleto = ?, anoMatricula = ?, email = ?, endereco = ?, CEP = ?, telefone = ?, usuario = ?, senha = ?, curso = ?, observacoes = ?, isAtivo = ? WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, estudante.getNomeCompleto());
-            statement.setInt(2, estudante.getAnoMatricula());
+            statement.setString(2, estudante.getAnoMatricula());
             statement.setString(3, estudante.getEmail());
             statement.setString(4, estudante.getEndereco());
             statement.setString(5, estudante.getCEP());
@@ -127,9 +130,9 @@ public class EstudanteRepository {
             statement.setLong(12, estudante.getId());
 
             statement.executeUpdate();
-            System.out.println("[SUCESSO] Tabela atualizada com sucesso.");
+            System.out.println("Tabela atualizada com sucesso.");
         } catch (SQLException e) {
-            System.out.println("[ERRO] Falha ao atualizar a tabela.");
+            System.out.println("Falha ao atualizar a tabela.");
             JOptionPane.showMessageDialog(null, "Erro ao inserir aluno: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
@@ -143,9 +146,9 @@ public class EstudanteRepository {
             statement.setInt(1, idEstudante);
 
             statement.executeUpdate();
-            System.out.println("[SUCESSO] Estudante excluido da tabela com sucesso.");
+            System.out.println("Estudante excluido da tabela com sucesso.");
         } catch (SQLException e) {
-            System.out.println("[ERRO] Falha ao excluir estudante da tabela.");
+            System.out.println("Falha ao excluir estudante da tabela.");
             throw new RuntimeException(e);
         }
     }

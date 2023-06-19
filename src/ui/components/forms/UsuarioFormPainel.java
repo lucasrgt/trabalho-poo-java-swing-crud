@@ -135,12 +135,11 @@ public class UsuarioFormPainel extends JPanel implements Componente {
                     return;
                 }
 
-                try {
-                    novoEstudante.setAnoMatricula(Integer.parseInt(campoIdadeMatricula.getText()));
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Ano de matrícula inválido. Por favor, insira um número inteiro válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+                if (campoIdadeMatricula.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Idade na matrícula é obrigatória", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                novoEstudante.setAnoMatricula(campoIdadeMatricula.getText());
 
                 novoEstudante.setEmail(campoEmail.getText());
                 if (campoEmail.getText().isEmpty()) {
