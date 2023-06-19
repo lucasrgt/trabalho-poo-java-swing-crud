@@ -3,6 +3,7 @@ package repositories;
 import model.EstudanteModel;
 import database.ConexaoFactory;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,6 +130,7 @@ public class EstudanteRepository {
             System.out.println("[SUCESSO] Tabela atualizada com sucesso.");
         } catch (SQLException e) {
             System.out.println("[ERRO] Falha ao atualizar a tabela.");
+            JOptionPane.showMessageDialog(null, "Erro ao inserir aluno: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
     }
