@@ -20,6 +20,15 @@ public class EstudanteRepository {
 
     // C -> Criar um novo usuário na tabela
     public void insert(EstudanteModel estudante) {
+        if (estudante.getNomeCompleto() == null || estudante.getNomeCompleto().trim().isEmpty()
+                || estudante.getEmail() == null || estudante.getEmail().trim().isEmpty()
+                || estudante.getEndereco() == null || estudante.getEndereco().trim().isEmpty()
+                || estudante.getUsuario() == null || estudante.getUsuario().trim().isEmpty()
+                || estudante.getSenha() == null || estudante.getSenha().trim().isEmpty()
+                || estudante.getCurso() == null || estudante.getCurso().trim().isEmpty()) {
+            throw new IllegalArgumentException("[ERRO] Todos os campos devem ser preenchidos.");
+        }
+
         String sql = "INSERT INTO estudante(nomeCompleto, anoMatricula, email, endereco, CEP, telefone, usuario, senha, curso, observacoes, isAtivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -91,6 +100,15 @@ public class EstudanteRepository {
 
     // U -> Update (atualizar os dados dos alunos na tabela)
     public void update(EstudanteModel estudante) {
+        if (estudante.getNomeCompleto() == null || estudante.getNomeCompleto().trim().isEmpty()
+                || estudante.getEmail() == null || estudante.getEmail().trim().isEmpty()
+                || estudante.getEndereco() == null || estudante.getEndereco().trim().isEmpty()
+                || estudante.getUsuario() == null || estudante.getUsuario().trim().isEmpty()
+                || estudante.getSenha() == null || estudante.getSenha().trim().isEmpty()
+                || estudante.getCurso() == null || estudante.getCurso().trim().isEmpty()) {
+            throw new IllegalArgumentException("[ERRO] Campo preenchico com dados inválidos.");
+        }
+
         String sql = "UPDATE estudante SET nomeCompleto = ?, anoMatricula = ?, email = ?, endereco = ?, CEP = ?, telefone = ?, usuario = ?, senha = ?, curso = ?, observacoes = ?, isAtivo = ? WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
