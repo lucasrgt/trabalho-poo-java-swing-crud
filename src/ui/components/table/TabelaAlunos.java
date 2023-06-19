@@ -94,7 +94,10 @@ public class TabelaAlunos extends JPanel implements Componente {
         table.setFillsViewportHeight(true);
         add(scrollPane, BorderLayout.CENTER);
 
+        table.getColumn("Curso").setCellEditor(new CursoEditor());
+
         BotaoDeletar botaoDeletar = new BotaoDeletar();
+
         table.getColumn("Deletar").setCellRenderer(botaoDeletar);
         table.getColumn("Deletar").setCellEditor(botaoDeletar);
 
