@@ -27,16 +27,21 @@ public class BotaoDeletar extends AbstractCellEditor implements TableCellEditor,
         editButton.setBackground(new Color(255, 80, 80));
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                fireEditingStopped();
+                int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "Você realmente deseja deletar este estudante?",
+                        "Aviso", JOptionPane.YES_NO_OPTION);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    fireEditingStopped();
 
-                int idEstudante = (int) table.getModel().getValueAt(editRow, 0);
+                    int idEstudante = (int) table.getModel().getValueAt(editRow, 0);
 
-                // Remove o estudante do banco de dados
-                new EstudanteRepository().delete(idEstudante);
+                    // Remove o estudante do banco de dados
+                    new EstudanteRepository().delete(idEstudante);
 
-                // Remove a linha da tabela
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.removeRow(editRow);
+                    // Remove a linha da tabela
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    model.removeRow(editRow);
+                }
             }
         });
     }
@@ -68,5 +73,4 @@ public class BotaoDeletar extends AbstractCellEditor implements TableCellEditor,
     public Object getCellEditorValue() {
         return text;
     }
-
 }
